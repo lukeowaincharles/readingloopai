@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type PageDocumentDataSlicesSlice = IconFeatureGridSlice | RichTextSlice;
 
 /**
  * Content for Page documents
@@ -79,15 +79,97 @@ export type PageDocument<Lang extends string = string> =
 export type AllDocumentTypes = PageDocument;
 
 /**
- * Primary content in *RichText → Primary*
+ * Item in *IconFeatureGrid → Default → Primary → Features*
+ */
+export interface IconFeatureGridSliceDefaultPrimaryFeaturesItem {
+  /**
+   * Icon field in *IconFeatureGrid → Default → Primary → Features*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: icon_feature_grid.default.primary.features[].icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *IconFeatureGrid → Default → Primary → Features*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: icon_feature_grid.default.primary.features[].title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+
+  /**
+   * Description field in *IconFeatureGrid → Default → Primary → Features*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: icon_feature_grid.default.primary.features[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *IconFeatureGrid → Default → Primary*
+ */
+export interface IconFeatureGridSliceDefaultPrimary {
+  /**
+   * Features field in *IconFeatureGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: icon_feature_grid.default.primary.features[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  features: prismic.GroupField<
+    Simplify<IconFeatureGridSliceDefaultPrimaryFeaturesItem>
+  >;
+}
+
+/**
+ * Default variation for IconFeatureGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Displays features in a three-column grid, each column containing an icon, a heading, and a supporting description.
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type IconFeatureGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<IconFeatureGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *IconFeatureGrid*
+ */
+type IconFeatureGridSliceVariation = IconFeatureGridSliceDefault;
+
+/**
+ * IconFeatureGrid Shared Slice
+ *
+ * - **API ID**: `icon_feature_grid`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type IconFeatureGridSlice = prismic.SharedSlice<
+  "icon_feature_grid",
+  IconFeatureGridSliceVariation
+>;
+
+/**
+ * Primary content in *RichText → Default → Primary*
  */
 export interface RichTextSliceDefaultPrimary {
   /**
-   * Content field in *RichText → Primary*
+   * Content field in *RichText → Default → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Lorem ipsum...
-   * - **API ID Path**: rich_text.primary.content
+   * - **API ID Path**: rich_text.default.primary.content
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   content: prismic.RichTextField;
@@ -131,12 +213,28 @@ declare module "@prismicio/client" {
     ): prismic.Client<AllDocumentTypes>;
   }
 
+  interface CreateWriteClient {
+    (
+      repositoryNameOrEndpoint: string,
+      options: prismic.WriteClientConfig,
+    ): prismic.WriteClient<AllDocumentTypes>;
+  }
+
+  interface CreateMigration {
+    (): prismic.Migration<AllDocumentTypes>;
+  }
+
   namespace Content {
     export type {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      IconFeatureGridSlice,
+      IconFeatureGridSliceDefaultPrimaryFeaturesItem,
+      IconFeatureGridSliceDefaultPrimary,
+      IconFeatureGridSliceVariation,
+      IconFeatureGridSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

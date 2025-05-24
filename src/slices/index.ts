@@ -3,5 +3,6 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  icon_feature_grid: dynamic(() => import("./IconFeatureGrid")),
   rich_text: dynamic(() => import("./RichText")),
 };
