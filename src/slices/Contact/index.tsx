@@ -21,9 +21,12 @@ const Contact: FC<ContactProps> = ({ slice }) => {
     >
       <Container>
         <div className="flex flex-col items-center justify-center">
-          <h2 className="text-xl font-bold pb-2">{slice.primary.title}</h2>
-          <p className="text-sm pb-2">{slice.primary.description}</p>
+          <h2 className="text-xl font-bold pb-3">{slice.primary.title}</h2>
+          <p className="pb-5">{slice.primary.description}</p>
           <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope mr-2 text-teal-800" viewBox="0 0 16 16">
+              <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
+            </svg>
             <PrismicNextLink className="text-teal-800 hover:text-gray-950 hover:underline border-r-2 border-gray-950 pr-4 mr-4" field={slice.primary.email} />
             <p className="text-sm pr-2">Follow our journey:</p>
             {slice.primary.socials.map((item, i) => {
@@ -52,9 +55,12 @@ const Contact: FC<ContactProps> = ({ slice }) => {
               };
 
               return (
-                <PrismicNextLink field={item.social_link} key={i}>
-                  <span>{icon()}</span>
-                </PrismicNextLink>
+                <div className="flex items-center" key={i}>
+                  <span className="mr-2">{icon()}</span>
+                  <PrismicNextLink className="text-zinc-600 hover:text-zinc-950 hover:underline" field={item.social_link}>
+                    <p>{item.social_link.text}</p>
+                  </PrismicNextLink>
+                </div>
               )
             })}
           </div>

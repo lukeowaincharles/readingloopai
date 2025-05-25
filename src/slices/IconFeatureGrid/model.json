@@ -23,23 +23,24 @@
                 }
               },
               "title": {
-                "type": "StructuredText",
+                "type": "Text",
                 "config": {
-                  "single": "heading3",
-                  "label": "Title"
+                  "label": "Title",
+                  "placeholder": ""
                 }
               },
               "description": {
-                "type": "StructuredText",
+                "type": "Text",
                 "config": {
-                  "multi": "paragraph,strong,em,hyperlink",
-                  "label": "Description"
+                  "label": "Description",
+                  "placeholder": ""
                 }
               }
             }
           }
         }
-      }
+      },
+      "items": {}
     }
   ]
 }

@@ -27,6 +27,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "embed": {
+              "type": "SharedSlice"
+            },
+            "simple_hero": {
+              "type": "SharedSlice"
+            },
             "contact": {
               "type": "SharedSlice"
             },

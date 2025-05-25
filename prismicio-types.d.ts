@@ -5,6 +5,8 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type PageDocumentDataSlicesSlice =
+  | EmbedSlice
+  | SimpleHeroSlice
   | ContactSlice
   | IconFeatureGridSlice
   | RichTextSlice;
@@ -188,6 +190,48 @@ export type ContactSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *Embed → Default → Primary*
+ */
+export interface EmbedSliceDefaultPrimary {
+  /**
+   * EmbedField field in *Embed → Default → Primary*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: embed.default.primary.embedfield
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  embedfield: prismic.EmbedField;
+}
+
+/**
+ * Default variation for Embed Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type EmbedSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<EmbedSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Embed*
+ */
+type EmbedSliceVariation = EmbedSliceDefault;
+
+/**
+ * Embed Shared Slice
+ *
+ * - **API ID**: `embed`
+ * - **Description**: Embed
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type EmbedSlice = prismic.SharedSlice<"embed", EmbedSliceVariation>;
+
+/**
  * Item in *IconFeatureGrid → Default → Primary → Features*
  */
 export interface IconFeatureGridSliceDefaultPrimaryFeaturesItem {
@@ -204,22 +248,22 @@ export interface IconFeatureGridSliceDefaultPrimaryFeaturesItem {
   /**
    * Title field in *IconFeatureGrid → Default → Primary → Features*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: icon_feature_grid.default.primary.features[].title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  title: prismic.TitleField;
+  title: prismic.KeyTextField;
 
   /**
    * Description field in *IconFeatureGrid → Default → Primary → Features*
    *
-   * - **Field Type**: Rich Text
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: icon_feature_grid.default.primary.features[].description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  description: prismic.RichTextField;
+  description: prismic.KeyTextField;
 }
 
 /**
@@ -314,6 +358,71 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Primary content in *SimpleHero → Default → Primary*
+ */
+export interface SimpleHeroSliceDefaultPrimary {
+  /**
+   * Icon field in *SimpleHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: simple_hero.default.primary.icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *SimpleHero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: simple_hero.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *SimpleHero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: simple_hero.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for SimpleHero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SimpleHeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SimpleHeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *SimpleHero*
+ */
+type SimpleHeroSliceVariation = SimpleHeroSliceDefault;
+
+/**
+ * SimpleHero Shared Slice
+ *
+ * - **API ID**: `simple_hero`
+ * - **Description**: SimpleHero
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SimpleHeroSlice = prismic.SharedSlice<
+  "simple_hero",
+  SimpleHeroSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -344,6 +453,10 @@ declare module "@prismicio/client" {
       ContactSliceDefaultPrimary,
       ContactSliceVariation,
       ContactSliceDefault,
+      EmbedSlice,
+      EmbedSliceDefaultPrimary,
+      EmbedSliceVariation,
+      EmbedSliceDefault,
       IconFeatureGridSlice,
       IconFeatureGridSliceDefaultPrimaryFeaturesItem,
       IconFeatureGridSliceDefaultPrimary,
@@ -353,6 +466,10 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      SimpleHeroSlice,
+      SimpleHeroSliceDefaultPrimary,
+      SimpleHeroSliceVariation,
+      SimpleHeroSliceDefault,
     };
   }
 }

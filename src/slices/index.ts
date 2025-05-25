@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 
 export const components = {
   contact: dynamic(() => import("./Contact")),
+  embed: dynamic(() => import("./Embed")),
   icon_feature_grid: dynamic(() => import("./IconFeatureGrid")),
   rich_text: dynamic(() => import("./RichText")),
+  simple_hero: dynamic(() => import("./SimpleHero")),
 };

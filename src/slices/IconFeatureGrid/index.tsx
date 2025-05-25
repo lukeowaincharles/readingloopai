@@ -16,10 +16,10 @@ export type IconFeatureGridProps =
 const IconFeatureGrid: FC<IconFeatureGridProps> = ({ slice }) => {
   const IconFeatureContent = slice.primary.features.map((item, i) => {
     return (
-      <div key={i} className="p-4">
-        <PrismicNextImage field={item.icon} />
-        <PrismicRichText field={item.title} />
-        <PrismicRichText field={item.description} />
+      <div key={i} className="p-4 flex flex-col items-center bg-white border-2 border-teal-500 rounded-lg text-center shadow-lg w-full md:w-[25%]">
+        {item.icon && <PrismicNextImage className="w-10 h-10" field={item.icon} />}
+        {item.title && <h2 className="text-xl font-bold py-4">{item.title}</h2>}
+        {item.description && <p className="text-zinc-600">{item.description}</p>}
       </div>
     );
   });
@@ -27,9 +27,10 @@ const IconFeatureGrid: FC<IconFeatureGridProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="pt-8 pb-[128] bg-green-50"
     >
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {/* @TODO: This may need to change, flex might be a better option */}
+        <div className="flex flex-wrap justify-center gap-4">
           {IconFeatureContent}
         </div>
       </Container>
