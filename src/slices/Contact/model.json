@@ -1,0 +1,75 @@
+{
+  "id": "contact",
+  "type": "SharedSlice",
+  "name": "Contact",
+  "description": "Contact",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": ""
+          }
+        },
+        "email": {
+          "type": "Link",
+          "config": {
+            "label": "Email",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "socials": {
+          "type": "Group",
+          "config": {
+            "label": "Socials",
+            "repeat": true,
+            "fields": {
+              "social_icons": {
+                "type": "Select",
+                "config": {
+                  "label": "Social icons",
+                  "placeholder": "",
+                  "options": [
+                    "instagram",
+                    "linkedin"
+                  ]
+                }
+              },
+              "social_link": {
+                "type": "Link",
+                "config": {
+                  "label": "Social link",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
