@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center">
           {/* @TODO: Add icon here */}
           <p>Reading Loop</p>
-          <p className="text-xs mt-2 text-zinc-300">© {yearRange} Reading Loop. All Rights Reserved.</p>
+          <p className="text-xs mt-2 text-zinc-300">© {yearRange} Reading Loop. All Rights Reserved. <a href="/privacy-policy" className="underline">Privacy Policy</a></p>
         </div>
       </Container>
     </footer>
