@@ -5,6 +5,7 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type PageDocumentDataSlicesSlice =
+  | SignupFormSlice
   | EmbedSlice
   | SimpleHeroSlice
   | ContactSlice
@@ -359,6 +360,51 @@ export type RichTextSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *SignupForm → Default → Primary*
+ */
+export interface SignupFormSliceDefaultPrimary {
+  /**
+   * Title field in *SignupForm → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: signup_form.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for SignupForm Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SignupFormSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<SignupFormSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *SignupForm*
+ */
+type SignupFormSliceVariation = SignupFormSliceDefault;
+
+/**
+ * SignupForm Shared Slice
+ *
+ * - **API ID**: `signup_form`
+ * - **Description**: SignupForm
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SignupFormSlice = prismic.SharedSlice<
+  "signup_form",
+  SignupFormSliceVariation
+>;
+
+/**
  * Primary content in *SimpleHero → Default → Primary*
  */
 export interface SimpleHeroSliceDefaultPrimary {
@@ -466,6 +512,10 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      SignupFormSlice,
+      SignupFormSliceDefaultPrimary,
+      SignupFormSliceVariation,
+      SignupFormSliceDefault,
       SimpleHeroSlice,
       SimpleHeroSliceDefaultPrimary,
       SimpleHeroSliceVariation,

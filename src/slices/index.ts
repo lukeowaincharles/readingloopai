@@ -7,5 +7,6 @@ export const components = {
   embed: dynamic(() => import("./Embed")),
   icon_feature_grid: dynamic(() => import("./IconFeatureGrid")),
   rich_text: dynamic(() => import("./RichText")),
+  signup_form: dynamic(() => import("./SignupForm")),
   simple_hero: dynamic(() => import("./SimpleHero")),
 };
